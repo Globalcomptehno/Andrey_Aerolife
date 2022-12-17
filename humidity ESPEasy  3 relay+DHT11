@@ -1,0 +1,27 @@
+on DHT#Humidity>40 & >100 do
+  if [DHT#Humidity]>40 and [DHT#Humidity]<60
+     gpio,13,1
+     gpio,12,1
+     gpio,14,0
+  endif
+  if [DHT#Humidity]>60 and [DHT#Humidity]<75
+     gpio,13,1
+     gpio,14,1
+     gpio,12,0
+  endif 
+  if [DHT#Humidity]>75
+     gpio,14,1
+     gpio,12,1
+     gpio,13,0
+  endif
+endon
+
+on DHT#Humidity<40 do
+  event Relay1off
+endon
+
+on Relay1off do
+  gpio,13,1
+  gpio,12,1
+  gpio,14,1
+endon
